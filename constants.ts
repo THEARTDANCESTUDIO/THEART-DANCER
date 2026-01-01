@@ -2,7 +2,7 @@
 import { Dancer } from './types';
 
 export const INITIAL_DANCERS: Dancer[] = [
-  { id: '1', name: 'GAYOON', role: 'DANCER', imageUrl: 'https://lh3.googleusercontent.com/d/1-EVDP8Xt7nFoTxaTlqh2H3DbZs4dNpcG=w1000?authuser=0$0' },
+  { id: '1', name: 'GAYOON', role: 'DANCER', imageUrl: 'https://lh3.googleusercontent.com/d/1-EVDP8Xt7nFoTxaTlqh2H3DbZs4dNpcG' },
   { id: '2', name: 'JAY', role: 'DANCER', imageUrl: 'https://picsum.photos/seed/d2/600/600' },
   { id: '3', name: 'SOPHIA', role: 'CHOREOGRAPHER', imageUrl: 'https://picsum.photos/seed/d3/600/600' },
   { id: '4', name: 'KAI', role: 'DANCER', imageUrl: 'https://picsum.photos/seed/d4/600/600' },

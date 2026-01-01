@@ -10,7 +10,7 @@ interface NavbarProps {
   t: any;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ isAdmin, toggleAdmin, currentLang, setLang, t }) => {
+export const Navbar: React.FC<NavbarProps> = ({ isAdmin, currentLang, setLang, t }) => {
   const [showLangMenu, setShowLangMenu] = useState(false);
 
   const languages: { code: Language; label: string }[] = [
@@ -30,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isAdmin, toggleAdmin, currentLan
     <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
       <div 
         onClick={handleLogoClick}
-        className="text-xl font-black tracking-tighter cursor-pointer select-none hover:text-red-500 transition-colors"
+        className="text-xl font-black tracking-tighter cursor-pointer select-none hover:text-red-500 transition-colors duration-300"
       >
         THEART
       </div>
@@ -43,13 +43,10 @@ export const Navbar: React.FC<NavbarProps> = ({ isAdmin, toggleAdmin, currentLan
 
       <div className="flex items-center space-x-4 md:space-x-6 text-[10px] font-bold uppercase">
         <div className="relative group flex items-center space-x-4">
-          {/* Hidden Admin Trigger - Restored */}
-          <button 
-            onClick={toggleAdmin}
-            className={`w-6 h-6 flex items-center justify-center rounded border border-white/5 transition-all duration-500 ${isAdmin ? 'bg-red-600 border-red-600 text-white' : 'text-zinc-900 hover:text-white/20'}`}
-          >
-            TK
-          </button>
+          {/* Secret Admin Status Indicator */}
+          <div 
+            className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${isAdmin ? 'bg-red-600 scale-100' : 'bg-transparent scale-0'}`}
+          />
 
           <div className="relative">
             <button 

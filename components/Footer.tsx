@@ -1,12 +1,37 @@
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
 interface FooterProps {
   t: any;
   toggleAdmin: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ t }) => {
+export const Footer: React.FC<FooterProps> = ({ t, toggleAdmin }) => {
+  const [clickCount, setClickCount] = useState(0);
+  const lastClickTime = useRef<number>(0);
+
+  const handleSecretTrigger = () => {
+    const now = Date.now();
+    const diff = now - lastClickTime.current;
+    
+    if (diff < 500) {
+      const newCount = clickCount + 1;
+      if (newCount >= 5) {
+        toggleAdmin();
+        setClickCount(0);
+      } else {
+        setClickCount(newCount);
+      }
+    } else {
+      setClickCount(1);
+    }
+    lastClickTime.current = now;
+  };
+
+  const handleFaqClick = () => {
+    window.open('https://stupendous-shortbread-e6c2e2.netlify.app', '_blank');
+  };
+
   return (
     <footer className="bg-black border-t border-white/10 pt-20 pb-10 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
@@ -21,14 +46,17 @@ export const Footer: React.FC<FooterProps> = ({ t }) => {
           <h4 className="text-[10px] font-black uppercase tracking-[0.3em] mb-6 text-zinc-500">{t.footer.info}</h4>
           <ul className="space-y-3 text-xs font-bold uppercase tracking-widest">
             <li className="cursor-pointer hover:text-red-500">{t.footer.about}</li>
-            <li className="cursor-pointer hover:text-red-500">{t.footer.faq}</li>
+            <li onClick={handleFaqClick} className="cursor-pointer hover:text-red-500">{t.footer.faq}</li>
             <li className="cursor-pointer hover:text-red-500">{t.footer.contact}</li>
           </ul>
         </div>
       </div>
 
       <div className="text-center mb-16">
-        <h2 className="text-6xl font-black tracking-tighter mb-4 cursor-default select-none">
+        <h2 
+          onClick={handleSecretTrigger}
+          className="text-6xl font-black tracking-tighter mb-4 cursor-pointer select-none active:scale-95 transition-transform"
+        >
           THEART
         </h2>
         <p className="text-xs font-bold tracking-[0.4em] uppercase text-zinc-400">DANCE STUDIO SEOUL</p>
