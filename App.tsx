@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Navbar } from './components/Navbar.tsx';
 import { DancerCard } from './components/DancerCard.tsx';
 import { EditModal } from './components/EditModal.tsx';
@@ -10,15 +10,17 @@ import { Dancer, Language } from './types.ts';
 import { translations } from './i18n.ts';
 
 const App: React.FC = () => {
-  // Load dancers from local storage if available, otherwise use initial constants
   const [dancers, setDancers] = useState<Dancer[]>(() => {
     try {
       const saved = localStorage.getItem('theart_dancers_v1');
-      return saved ? JSON.parse(saved) : INITIAL_DANCERS;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_DANCERS;
+      }
     } catch (e) {
       console.error('Failed to load dancers from storage', e);
-      return INITIAL_DANCERS;
     }
+    return INITIAL_DANCERS;
   });
 
   const [isAdmin, setIsAdmin] = useState(false);
@@ -28,14 +30,18 @@ const App: React.FC = () => {
   const [dancerToDelete, setDancerToDelete] = useState<string | null>(null);
   const [currentLang, setCurrentLang] = useState<Language>('ko');
 
-  const t = translations[currentLang];
+  const t = translations[currentLang] || translations.en;
 
-  // Persist dancers to local storage whenever they change
+  // Persist to localStorage whenever dancers state changes
   useEffect(() => {
-    localStorage.setItem('theart_dancers_v1', JSON.stringify(dancers));
+    try {
+      localStorage.setItem('theart_dancers_v1', JSON.stringify(dancers));
+    } catch (e) {
+      console.error('Failed to save dancers to storage', e);
+    }
   }, [dancers]);
 
-  const handleToggleAdmin = () => setIsAdmin(!isAdmin);
+  const handleToggleAdmin = useCallback(() => setIsAdmin(prev => !prev), []);
 
   const handleAddDancer = () => {
     setEditingDancer(null);
@@ -61,16 +67,14 @@ const App: React.FC = () => {
 
   const handleSaveDancer = (dancer: Dancer) => {
     setDancers(prev => {
-      const index = prev.findIndex(d => d.id === dancer.id);
-      if (index !== -1) {
-        // Update existing dancer
-        const updated = [...prev];
-        updated[index] = dancer;
-        return updated;
+      const exists = prev.some(d => d.id === dancer.id);
+      if (exists) {
+        return prev.map(d => d.id === dancer.id ? dancer : d);
       }
-      // Add new dancer at the beginning
       return [dancer, ...prev];
     });
+    // Ensure modal closes and state resets
+    setIsModalOpen(false);
     setEditingDancer(null);
   };
 
@@ -94,8 +98,12 @@ const App: React.FC = () => {
 
       <main className="pt-32 pb-20">
         <header className="px-6 text-center mb-16">
-          <h1 className="text-7xl md:text-9xl font-black tracking-tighter uppercase leading-none mb-4">{t.header.title}</h1>
-          <div className="text-[10px] font-bold tracking-[0.5em] uppercase text-zinc-500">{t.header.subtitle}</div>
+          <h1 className="text-7xl md:text-9xl font-black tracking-tighter uppercase leading-none mb-4">
+            {t.header?.title || 'DANCERS'}
+          </h1>
+          <div className="text-[10px] font-bold tracking-[0.5em] uppercase text-zinc-500">
+            {t.header?.subtitle || 'PROFESSIONAL ARTISTS'}
+          </div>
         </header>
 
         {isAdmin && (
@@ -104,7 +112,7 @@ const App: React.FC = () => {
               onClick={handleAddDancer}
               className="group flex items-center space-x-3 bg-white text-black px-8 py-3 rounded-full font-black uppercase tracking-tighter text-sm hover:bg-red-600 hover:text-white transition-all transform hover:scale-105 shadow-xl shadow-white/10"
             >
-              <span>{t.admin.add}</span>
+              <span>{t.admin?.add || 'Add New'}</span>
               <span className="text-lg">+</span>
             </button>
           </div>
@@ -127,21 +135,27 @@ const App: React.FC = () => {
 
         <section className="mt-40 border-y border-white/10 py-24 bg-zinc-900/30">
           <div className="px-6 text-center">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-8">{t.schedule.title}</h2>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-8">
+              {t.schedule?.title || 'SCHEDULE'}
+            </h2>
             <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-16">
               <div 
                 onClick={handleFaqClick}
                 className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50 min-w-[280px]"
               >
                 <div className="text-6xl font-black mb-4 group-hover:text-red-500 transition-colors">FAQ</div>
-                <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500">{t.schedule.faqSub}</div>
+                <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500">
+                  {t.schedule?.faqSub || 'QUESTIONS?'}
+                </div>
               </div>
               <div 
                 onClick={handleContactClick}
                 className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50 min-w-[280px]"
               >
                 <div className="text-6xl font-black mb-4 group-hover:text-red-500 transition-colors">CONTACT</div>
-                <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500">{t.schedule.contactSub}</div>
+                <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500">
+                  {t.schedule?.contactSub || 'REACH OUT'}
+                </div>
               </div>
             </div>
           </div>
@@ -150,21 +164,25 @@ const App: React.FC = () => {
 
       <Footer t={t} toggleAdmin={handleToggleAdmin} />
 
-      <EditModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onSave={handleSaveDancer}
-        initialDancer={editingDancer}
-        t={t}
-      />
+      {isModalOpen && (
+        <EditModal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)} 
+          onSave={handleSaveDancer}
+          initialDancer={editingDancer}
+          t={t}
+        />
+      )}
 
-      <ConfirmModal 
-        isOpen={isConfirmOpen}
-        onClose={() => setIsConfirmOpen(false)}
-        onConfirm={confirmDelete}
-        message={t.admin.confirmDelete}
-        t={t}
-      />
+      {isConfirmOpen && (
+        <ConfirmModal 
+          isOpen={isConfirmOpen}
+          onClose={() => setIsConfirmOpen(false)}
+          onConfirm={confirmDelete}
+          message={t.admin?.confirmDelete || 'Are you sure?'}
+          t={t}
+        />
+      )}
     </div>
   );
 };
