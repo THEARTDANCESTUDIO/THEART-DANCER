@@ -32,6 +32,11 @@ export const Footer: React.FC<FooterProps> = ({ t, toggleAdmin }) => {
     window.open('https://stupendous-shortbread-e6c2e2.netlify.app', '_blank');
   };
 
+  const handleDancersClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.location.reload();
+  };
+
   return (
     <footer className="bg-black border-t border-white/10 pt-20 pb-10 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
@@ -39,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({ t, toggleAdmin }) => {
           <h4 className="text-[10px] font-black uppercase tracking-[0.3em] mb-6 text-zinc-500">{t.footer.class}</h4>
           <ul className="space-y-3 text-xs font-bold uppercase tracking-widest">
             <li className="cursor-pointer hover:text-red-500">{t.footer.schedule}</li>
-            <li className="cursor-pointer hover:text-red-500">{t.nav.dancers}</li>
+            <li onClick={handleDancersClick} className="cursor-pointer hover:text-red-500">{t.nav.dancers}</li>
           </ul>
         </div>
         <div>

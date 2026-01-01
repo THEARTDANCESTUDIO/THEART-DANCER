@@ -26,6 +26,11 @@ export const Navbar: React.FC<NavbarProps> = ({ isAdmin, currentLang, setLang, t
     window.location.href = 'https://theartdancestudio1120.netlify.app';
   };
 
+  const handleDancersClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.location.reload();
+  };
+
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
       <div 
@@ -36,7 +41,13 @@ export const Navbar: React.FC<NavbarProps> = ({ isAdmin, currentLang, setLang, t
       </div>
       
       <div className="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-widest">
-        <a href="#" className="text-red-500">{t.nav.dancers}</a>
+        <a 
+          href="#" 
+          onClick={handleDancersClick}
+          className="text-red-500 hover:opacity-80 transition-opacity"
+        >
+          {t.nav.dancers}
+        </a>
         <a href="#" className="hover:text-red-500 transition-colors">{t.nav.classes}</a>
         <a href="#" className="hover:text-red-500 transition-colors">{t.nav.store}</a>
       </div>
