@@ -1,13 +1,13 @@
 
 import React, { useState } from 'react';
-import { Navbar } from './components/Navbar';
-import { DancerCard } from './components/DancerCard';
-import { EditModal } from './components/EditModal';
-import { ConfirmModal } from './components/ConfirmModal';
-import { Footer } from './components/Footer';
-import { INITIAL_DANCERS } from './constants';
-import { Dancer, Language } from './types';
-import { translations } from './i18n';
+import { Navbar } from './components/Navbar.tsx';
+import { DancerCard } from './components/DancerCard.tsx';
+import { EditModal } from './components/EditModal.tsx';
+import { ConfirmModal } from './components/ConfirmModal.tsx';
+import { Footer } from './components/Footer.tsx';
+import { INITIAL_DANCERS } from './constants.ts';
+import { Dancer, Language } from './types.ts';
+import { translations } from './i18n.ts';
 
 const App: React.FC = () => {
   const [dancers, setDancers] = useState<Dancer[]>(INITIAL_DANCERS);
@@ -16,7 +16,7 @@ const App: React.FC = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [editingDancer, setEditingDancer] = useState<Dancer | null>(null);
   const [dancerToDelete, setDancerToDelete] = useState<string | null>(null);
-  const [currentLang, setCurrentLang] = useState<Language>('en');
+  const [currentLang, setCurrentLang] = useState<Language>('ko');
 
   const t = translations[currentLang];
 
