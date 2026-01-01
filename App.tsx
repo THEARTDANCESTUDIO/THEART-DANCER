@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Navbar } from './components/Navbar.tsx';
 import { DancerCard } from './components/DancerCard.tsx';
 import { EditModal } from './components/EditModal.tsx';
@@ -10,15 +10,16 @@ import { Dancer, Language } from './types.ts';
 import { translations } from './i18n.ts';
 
 const App: React.FC = () => {
+  // Safe initialization of state from localStorage
   const [dancers, setDancers] = useState<Dancer[]>(() => {
     try {
       const saved = localStorage.getItem('theart_dancers_v1');
       if (saved) {
         const parsed = JSON.parse(saved);
-        return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_DANCERS;
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
       }
     } catch (e) {
-      console.error('Failed to load dancers from storage', e);
+      console.error('LocalStorage load error:', e);
     }
     return INITIAL_DANCERS;
   });
@@ -30,61 +31,57 @@ const App: React.FC = () => {
   const [dancerToDelete, setDancerToDelete] = useState<string | null>(null);
   const [currentLang, setCurrentLang] = useState<Language>('ko');
 
-  const t = translations[currentLang] || translations.en;
+  const t = useMemo(() => translations[currentLang] || translations.ko, [currentLang]);
 
-  // Persist to localStorage whenever dancers state changes
+  // Update localStorage whenever dancers change
   useEffect(() => {
     try {
       localStorage.setItem('theart_dancers_v1', JSON.stringify(dancers));
     } catch (e) {
-      console.error('Failed to save dancers to storage', e);
+      console.error('LocalStorage save error:', e);
     }
   }, [dancers]);
 
-  const handleToggleAdmin = useCallback(() => setIsAdmin(prev => !prev), []);
+  const handleToggleAdmin = useCallback(() => {
+    setIsAdmin(prev => !prev);
+  }, []);
 
-  const handleAddDancer = () => {
+  const handleAddDancer = useCallback(() => {
     setEditingDancer(null);
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const handleEditDancer = (dancer: Dancer) => {
+  const handleEditDancer = useCallback((dancer: Dancer) => {
     setEditingDancer(dancer);
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const handleDeleteClick = (id: string) => {
+  const handleDeleteClick = useCallback((id: string) => {
     setDancerToDelete(id);
     setIsConfirmOpen(true);
-  };
+  }, []);
 
-  const confirmDelete = () => {
+  const confirmDelete = useCallback(() => {
     if (dancerToDelete) {
-      setDancers((prev) => prev.filter((d) => d.id !== dancerToDelete));
+      setDancers(prev => prev.filter(d => d.id !== dancerToDelete));
       setDancerToDelete(null);
     }
-  };
+  }, [dancerToDelete]);
 
-  const handleSaveDancer = (dancer: Dancer) => {
+  const handleSaveDancer = useCallback((dancer: Dancer) => {
     setDancers(prev => {
-      const exists = prev.some(d => d.id === dancer.id);
-      if (exists) {
-        return prev.map(d => d.id === dancer.id ? dancer : d);
+      const index = prev.findIndex(d => d.id === dancer.id);
+      if (index !== -1) {
+        const next = [...prev];
+        next[index] = dancer;
+        return next;
       }
       return [dancer, ...prev];
     });
-    // Ensure modal closes and state resets
+    // Closing modal and clearing selection immediately
     setIsModalOpen(false);
     setEditingDancer(null);
-  };
-
-  const handleFaqClick = () => {
-    window.open('https://stupendous-shortbread-e6c2e2.netlify.app', '_blank');
-  };
-
-  const handleContactClick = () => {
-    alert(currentLang === 'ko' ? '준비 중입니다.' : 'Coming soon.');
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-red-500 selection:text-white">
@@ -99,10 +96,10 @@ const App: React.FC = () => {
       <main className="pt-32 pb-20">
         <header className="px-6 text-center mb-16">
           <h1 className="text-7xl md:text-9xl font-black tracking-tighter uppercase leading-none mb-4">
-            {t.header?.title || 'DANCERS'}
+            {t.header?.title}
           </h1>
           <div className="text-[10px] font-bold tracking-[0.5em] uppercase text-zinc-500">
-            {t.header?.subtitle || 'PROFESSIONAL ARTISTS'}
+            {t.header?.subtitle}
           </div>
         </header>
 
@@ -112,7 +109,7 @@ const App: React.FC = () => {
               onClick={handleAddDancer}
               className="group flex items-center space-x-3 bg-white text-black px-8 py-3 rounded-full font-black uppercase tracking-tighter text-sm hover:bg-red-600 hover:text-white transition-all transform hover:scale-105 shadow-xl shadow-white/10"
             >
-              <span>{t.admin?.add || 'Add New'}</span>
+              <span>{t.admin?.add}</span>
               <span className="text-lg">+</span>
             </button>
           </div>
@@ -136,25 +133,25 @@ const App: React.FC = () => {
         <section className="mt-40 border-y border-white/10 py-24 bg-zinc-900/30">
           <div className="px-6 text-center">
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-8">
-              {t.schedule?.title || 'SCHEDULE'}
+              {t.schedule?.title}
             </h2>
             <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-16">
               <div 
-                onClick={handleFaqClick}
+                onClick={() => window.open('https://stupendous-shortbread-e6c2e2.netlify.app', '_blank')}
                 className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50 min-w-[280px]"
               >
                 <div className="text-6xl font-black mb-4 group-hover:text-red-500 transition-colors">FAQ</div>
                 <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500">
-                  {t.schedule?.faqSub || 'QUESTIONS?'}
+                  {t.schedule?.faqSub}
                 </div>
               </div>
               <div 
-                onClick={handleContactClick}
+                onClick={() => alert(currentLang === 'ko' ? '준비 중입니다.' : 'Coming soon.')}
                 className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50 min-w-[280px]"
               >
                 <div className="text-6xl font-black mb-4 group-hover:text-red-500 transition-colors">CONTACT</div>
                 <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500">
-                  {t.schedule?.contactSub || 'REACH OUT'}
+                  {t.schedule?.contactSub}
                 </div>
               </div>
             </div>
@@ -179,7 +176,7 @@ const App: React.FC = () => {
           isOpen={isConfirmOpen}
           onClose={() => setIsConfirmOpen(false)}
           onConfirm={confirmDelete}
-          message={t.admin?.confirmDelete || 'Are you sure?'}
+          message={t.admin?.confirmDelete}
           t={t}
         />
       )}
