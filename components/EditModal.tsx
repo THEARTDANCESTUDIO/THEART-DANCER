@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Dancer } from '../types';
+import { Dancer } from '../types.ts';
 
 interface EditModalProps {
   isOpen: boolean;
@@ -16,14 +16,16 @@ export const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, i
   const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
-    if (initialDancer) {
-      setName(initialDancer.name);
-      setRole(initialDancer.role);
-      setImageUrl(initialDancer.imageUrl);
-    } else {
-      setName('');
-      setRole('');
-      setImageUrl('');
+    if (isOpen) {
+      if (initialDancer) {
+        setName(initialDancer.name);
+        setRole(initialDancer.role);
+        setImageUrl(initialDancer.imageUrl);
+      } else {
+        setName('');
+        setRole('');
+        setImageUrl('');
+      }
     }
   }, [initialDancer, isOpen]);
 
@@ -32,7 +34,9 @@ export const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, i
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageUrl(reader.result as string);
+        if (typeof reader.result === 'string') {
+          setImageUrl(reader.result);
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -42,9 +46,9 @@ export const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, i
     e.preventDefault();
     onSave({
       id: initialDancer?.id || Date.now().toString(),
-      name,
-      role,
-      imageUrl
+      name: name.trim(),
+      role: role.trim(),
+      imageUrl: imageUrl.trim() || 'https://picsum.photos/seed/default/600/600'
     });
     onClose();
   };
@@ -53,7 +57,7 @@ export const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, i
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-      <div className="bg-zinc-900 border border-white/10 w-full max-w-md rounded-2xl p-8 shadow-2xl">
+      <div className="bg-zinc-900 border border-white/10 w-full max-w-md rounded-2xl p-8 shadow-2xl overflow-y-auto max-h-[90vh]">
         <h2 className="text-2xl font-black uppercase tracking-tighter mb-6">
           {initialDancer ? t.modal.editTitle : t.modal.addTitle}
         </h2>
@@ -92,7 +96,7 @@ export const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, i
                   file:rounded-full file:border-0
                   file:text-xs file:font-semibold
                   file:bg-zinc-800 file:text-zinc-300
-                  hover:file:bg-zinc-700"
+                  hover:file:bg-zinc-700 cursor-pointer"
               />
               <div className="text-center text-[9px] text-zinc-600 uppercase font-black tracking-widest">{t.modal.orUrl}</div>
               <input 
@@ -105,7 +109,7 @@ export const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, i
             </div>
             {imageUrl && (
               <div className="mt-4 flex justify-center">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-red-500 shadow-lg shadow-red-500/20">
+                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-red-500 shadow-lg shadow-red-500/20">
                   <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
                 </div>
               </div>

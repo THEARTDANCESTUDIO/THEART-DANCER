@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar.tsx';
 import { DancerCard } from './components/DancerCard.tsx';
 import { EditModal } from './components/EditModal.tsx';
@@ -10,7 +10,17 @@ import { Dancer, Language } from './types.ts';
 import { translations } from './i18n.ts';
 
 const App: React.FC = () => {
-  const [dancers, setDancers] = useState<Dancer[]>(INITIAL_DANCERS);
+  // Load dancers from local storage if available, otherwise use initial constants
+  const [dancers, setDancers] = useState<Dancer[]>(() => {
+    try {
+      const saved = localStorage.getItem('theart_dancers_v1');
+      return saved ? JSON.parse(saved) : INITIAL_DANCERS;
+    } catch (e) {
+      console.error('Failed to load dancers from storage', e);
+      return INITIAL_DANCERS;
+    }
+  });
+
   const [isAdmin, setIsAdmin] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -19,6 +29,11 @@ const App: React.FC = () => {
   const [currentLang, setCurrentLang] = useState<Language>('ko');
 
   const t = translations[currentLang];
+
+  // Persist dancers to local storage whenever they change
+  useEffect(() => {
+    localStorage.setItem('theart_dancers_v1', JSON.stringify(dancers));
+  }, [dancers]);
 
   const handleToggleAdmin = () => setIsAdmin(!isAdmin);
 
@@ -46,12 +61,17 @@ const App: React.FC = () => {
 
   const handleSaveDancer = (dancer: Dancer) => {
     setDancers(prev => {
-      const exists = prev.find(d => d.id === dancer.id);
-      if (exists) {
-        return prev.map(d => d.id === dancer.id ? dancer : d);
+      const index = prev.findIndex(d => d.id === dancer.id);
+      if (index !== -1) {
+        // Update existing dancer
+        const updated = [...prev];
+        updated[index] = dancer;
+        return updated;
       }
+      // Add new dancer at the beginning
       return [dancer, ...prev];
     });
+    setEditingDancer(null);
   };
 
   const handleFaqClick = () => {
@@ -59,7 +79,6 @@ const App: React.FC = () => {
   };
 
   const handleContactClick = () => {
-    // Placeholder for contact functionality
     alert(currentLang === 'ko' ? '준비 중입니다.' : 'Coming soon.');
   };
 
