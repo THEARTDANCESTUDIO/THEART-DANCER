@@ -42,47 +42,47 @@ export const Navbar: React.FC<NavbarProps> = ({ isAdmin, toggleAdmin, currentLan
       </div>
 
       <div className="flex items-center space-x-4 md:space-x-6 text-[10px] font-bold uppercase">
-        {/* Only show the button when Admin is already active to allow exiting */}
-        {isAdmin && (
+        <div className="relative group flex items-center space-x-4">
+          {/* Hidden Admin Trigger - Restored */}
           <button 
             onClick={toggleAdmin}
-            className="px-3 py-1 rounded border bg-red-600 border-red-600 text-white animate-pulse"
+            className={`w-6 h-6 flex items-center justify-center rounded border border-white/5 transition-all duration-500 ${isAdmin ? 'bg-red-600 border-red-600 text-white' : 'text-zinc-900 hover:text-white/20'}`}
           >
-            {t.nav.exitAdmin}
+            TK
           </button>
-        )}
-        
-        <div className="relative group">
-          <button 
-            onMouseEnter={() => setShowLangMenu(true)}
-            onClick={() => setShowLangMenu(!showLangMenu)}
-            className="flex items-center space-x-1 border border-white/10 px-2 py-1 rounded hover:bg-white/5 transition-colors"
-          >
-            <span>{currentLangLabel}</span>
-            <svg className={`w-3 h-3 transition-transform ${showLangMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          
-          {showLangMenu && (
-            <div 
-              className="absolute right-0 mt-2 w-32 bg-zinc-900 border border-white/10 rounded-lg shadow-2xl py-2 overflow-hidden"
-              onMouseLeave={() => setShowLangMenu(false)}
+
+          <div className="relative">
+            <button 
+              onMouseEnter={() => setShowLangMenu(true)}
+              onClick={() => setShowLangMenu(!showLangMenu)}
+              className="flex items-center space-x-1 border border-white/10 px-2 py-1 rounded hover:bg-white/5 transition-colors"
             >
-              {languages.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => {
-                    setLang(lang.code);
-                    setShowLangMenu(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 hover:bg-red-500 hover:text-white transition-colors ${currentLang === lang.code ? 'text-red-500' : ''}`}
-                >
-                  {lang.label}
-                </button>
-              ))}
-            </div>
-          )}
+              <span>{currentLangLabel}</span>
+              <svg className={`w-3 h-3 transition-transform ${showLangMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            
+            {showLangMenu && (
+              <div 
+                className="absolute right-0 mt-2 w-32 bg-zinc-900 border border-white/10 rounded-lg shadow-2xl py-2 overflow-hidden"
+                onMouseLeave={() => setShowLangMenu(false)}
+              >
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setLang(lang.code);
+                      setShowLangMenu(false);
+                    }}
+                    className={`w-full text-left px-4 py-2 hover:bg-red-500 hover:text-white transition-colors ${currentLang === lang.code ? 'text-red-500' : ''}`}
+                  >
+                    {lang.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         <button className="md:hidden">

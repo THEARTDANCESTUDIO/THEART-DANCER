@@ -97,20 +97,15 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Schedule Placeholder Section */}
+        {/* Schedule Section Reverted */}
         <section className="mt-40 border-y border-white/10 py-24 bg-zinc-900/30">
           <div className="px-6 text-center">
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-8">{t.schedule.title}</h2>
             <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-16">
-              <a 
-                href="https://stupendous-shortbread-e6c2e2.netlify.app" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50 block no-underline"
-              >
+              <div className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50">
                 <div className="text-6xl font-black mb-4 group-hover:text-red-500 transition-colors">FAQ</div>
                 <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500">{t.schedule.faqSub}</div>
-              </a>
+              </div>
               <div className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50">
                 <div className="text-6xl font-black mb-4 group-hover:text-red-500 transition-colors">CONTACT</div>
                 <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500">{t.schedule.contactSub}</div>
