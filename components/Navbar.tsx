@@ -28,7 +28,13 @@ export const Navbar: React.FC<NavbarProps> = ({ isAdmin, currentLang, setLang, t
 
   const handleDancersClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.location.reload();
+    // 현재 페이지 경로로 다시 이동하여 메인 리스트를 보여줌
+    window.location.href = window.location.origin + window.location.pathname;
+  };
+
+  const handleClassesClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.location.href = 'https://illustrious-pegasus-596112.netlify.app';
   };
 
   return (
@@ -48,7 +54,13 @@ export const Navbar: React.FC<NavbarProps> = ({ isAdmin, currentLang, setLang, t
         >
           {t.nav.dancers}
         </a>
-        <a href="#" className="hover:text-red-500 transition-colors">{t.nav.classes}</a>
+        <a 
+          href="#" 
+          onClick={handleClassesClick}
+          className="hover:text-red-500 transition-colors"
+        >
+          {t.nav.classes}
+        </a>
         <a href="#" className="hover:text-red-500 transition-colors">{t.nav.store}</a>
       </div>
 

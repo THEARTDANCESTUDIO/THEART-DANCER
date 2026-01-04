@@ -29,12 +29,21 @@ export const Footer: React.FC<FooterProps> = ({ t, toggleAdmin }) => {
   };
 
   const handleFaqClick = () => {
-    window.open('https://stupendous-shortbread-e6c2e2.netlify.app', '_blank');
+    window.location.href = 'https://stupendous-shortbread-e6c2e2.netlify.app';
   };
 
   const handleDancersClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.location.reload();
+    // 메인 페이지(Dancers)로 이동하거나 새로고침하여 초기 상태로 복구
+    window.location.href = window.location.origin + window.location.pathname;
+  };
+
+  const handleAboutClick = () => {
+    window.location.href = 'https://sparkly-basbousa-23afdf.netlify.app';
+  };
+
+  const handleScheduleClick = () => {
+    window.location.href = 'https://illustrious-pegasus-596112.netlify.app';
   };
 
   return (
@@ -43,16 +52,21 @@ export const Footer: React.FC<FooterProps> = ({ t, toggleAdmin }) => {
         <div>
           <h4 className="text-[10px] font-black uppercase tracking-[0.3em] mb-6 text-zinc-500">{t.footer.class}</h4>
           <ul className="space-y-3 text-xs font-bold uppercase tracking-widest">
-            <li className="cursor-pointer hover:text-red-500">{t.footer.schedule}</li>
+            <li onClick={handleScheduleClick} className="cursor-pointer hover:text-red-500">{t.footer.schedule}</li>
             <li onClick={handleDancersClick} className="cursor-pointer hover:text-red-500">{t.nav.dancers}</li>
           </ul>
         </div>
         <div>
           <h4 className="text-[10px] font-black uppercase tracking-[0.3em] mb-6 text-zinc-500">{t.footer.info}</h4>
           <ul className="space-y-3 text-xs font-bold uppercase tracking-widest">
-            <li className="cursor-pointer hover:text-red-500">{t.footer.about}</li>
+            <li onClick={handleAboutClick} className="cursor-pointer hover:text-red-500">{t.footer.about}</li>
             <li onClick={handleFaqClick} className="cursor-pointer hover:text-red-500">{t.footer.faq}</li>
-            <li className="cursor-pointer hover:text-red-500">{t.footer.contact}</li>
+            <li 
+              onClick={() => window.location.href = 'https://vocal-fairy-ef3f8a.netlify.app'}
+              className="cursor-pointer hover:text-red-500"
+            >
+              {t.footer.contact}
+            </li>
           </ul>
         </div>
       </div>
@@ -64,21 +78,16 @@ export const Footer: React.FC<FooterProps> = ({ t, toggleAdmin }) => {
         >
           THEART
         </h2>
-        <p className="text-xs font-bold tracking-[0.4em] uppercase text-zinc-400">DANCE STUDIO SEOUL</p>
-        <p className="text-xs font-bold mt-2 text-zinc-300">+82 2 123 4567</p>
+        <p className="text-xs font-bold tracking-[0.4em] uppercase text-zinc-400">DANCE STUDIO HEAD OFFICE</p>
+        <p className="text-xs font-bold mt-2 text-zinc-300">+82 10 9584 9901</p>
         <p className="text-xs font-bold text-zinc-300">INFO@THEARTDANCE.COM</p>
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center text-[9px] text-zinc-600 font-bold border-t border-white/5 pt-8 space-y-4 md:space-y-0">
-        <div>© 2024 THEART Dance Studio. All Rights Reserved.</div>
+        <div>© 2017 THEART Dance Studio. All Rights Reserved.</div>
         <div className="flex space-x-6">
           <a href="#" className="hover:text-white uppercase">{t.footer.terms}</a>
           <a href="#" className="hover:text-white uppercase">{t.footer.privacy}</a>
-        </div>
-        <div className="flex space-x-4">
-          <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black cursor-pointer transition-colors">YT</div>
-          <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black cursor-pointer transition-colors">IG</div>
-          <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black cursor-pointer transition-colors">TK</div>
         </div>
       </div>
     </footer>

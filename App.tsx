@@ -10,10 +10,12 @@ import { Dancer, Language } from './types.ts';
 import { translations } from './i18n.ts';
 
 const App: React.FC = () => {
-  // Safe initialization of state from localStorage
+  // Update version to v2 to force sync INITIAL_DANCERS on user's browsers after deployment
+  const STORAGE_KEY = 'theart_dancers_v2';
+
   const [dancers, setDancers] = useState<Dancer[]>(() => {
     try {
-      const saved = localStorage.getItem('theart_dancers_v1');
+      const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) return parsed;
@@ -33,10 +35,9 @@ const App: React.FC = () => {
 
   const t = useMemo(() => translations[currentLang] || translations.ko, [currentLang]);
 
-  // Update localStorage whenever dancers change
   useEffect(() => {
     try {
-      localStorage.setItem('theart_dancers_v1', JSON.stringify(dancers));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(dancers));
     } catch (e) {
       console.error('LocalStorage save error:', e);
     }
@@ -78,7 +79,6 @@ const App: React.FC = () => {
       }
       return [dancer, ...prev];
     });
-    // Closing modal and clearing selection immediately
     setIsModalOpen(false);
     setEditingDancer(null);
   }, []);
@@ -137,7 +137,7 @@ const App: React.FC = () => {
             </h2>
             <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-16">
               <div 
-                onClick={() => window.open('https://stupendous-shortbread-e6c2e2.netlify.app', '_blank')}
+                onClick={() => window.location.href = 'https://stupendous-shortbread-e6c2e2.netlify.app'}
                 className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50 min-w-[280px]"
               >
                 <div className="text-6xl font-black mb-4 group-hover:text-red-500 transition-colors">FAQ</div>
@@ -146,7 +146,7 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div 
-                onClick={() => alert(currentLang === 'ko' ? '준비 중입니다.' : 'Coming soon.')}
+                onClick={() => window.location.href = 'https://vocal-fairy-ef3f8a.netlify.app'}
                 className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50 min-w-[280px]"
               >
                 <div className="text-6xl font-black mb-4 group-hover:text-red-500 transition-colors">CONTACT</div>
