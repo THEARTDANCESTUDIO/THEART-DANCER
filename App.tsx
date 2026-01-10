@@ -10,8 +10,8 @@ import { Dancer, Language } from './types.ts';
 import { translations } from './i18n.ts';
 
 const App: React.FC = () => {
-  // Update version to v2 to force sync INITIAL_DANCERS on user's browsers after deployment
-  const STORAGE_KEY = 'theart_dancers_v2';
+  // Update version to v4 to force sync INITIAL_DANCERS on user's browsers after reordering
+  const STORAGE_KEY = 'theart_dancers_v4';
 
   const [dancers, setDancers] = useState<Dancer[]>(() => {
     try {
