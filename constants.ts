@@ -1,4 +1,3 @@
-
 import { Dancer } from './types';
 
 export const INITIAL_DANCERS: Dancer[] = [
@@ -7,6 +6,12 @@ export const INITIAL_DANCERS: Dancer[] = [
     name: 'HAEON', 
     role: 'director', 
     imageUrl: 'https://lh3.googleusercontent.com/d/1L2Qp2v6SL10oTIifvG3cx4pWIeFKbtqR=w1000?authuser=0$0' 
+  },
+  { 
+    id: '17', 
+    name: 'LEE MIJI', 
+    role: 'director', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1SJh6uGrY6pMN7_tq-pI9p-H3Pdl2kvy3=w1000?authuser=0$0' 
   },
   { 
     id: '4', 
