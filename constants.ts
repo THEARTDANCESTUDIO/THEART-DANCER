@@ -103,4 +103,10 @@ export const INITIAL_DANCERS: Dancer[] = [
     role: 'DANCER', 
     imageUrl: 'https://lh3.googleusercontent.com/d/1t6P45w8LUtwikozyy6pjBmd9pmWHOchB=w1000?authuser=0$0' 
   },
+  { 
+    id: '18', 
+    name: 'GAYUL', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1hOcuggMBNZbiPeo8If1C9XLCXoEeO7J6=w1000?authuser=0$0' 
+  }
 ];
