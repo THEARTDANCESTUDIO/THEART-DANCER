@@ -9,8 +9,8 @@ import { Dancer, Language } from './types.ts';
 import { translations } from './i18n.ts';
 
 const App: React.FC = () => {
-  // Update version to v10 to force sync INITIAL_DANCERS on user's browsers after adding MINA
-  const STORAGE_KEY = 'theart_dancers_v10';
+  // Update version to v12 to force sync INITIAL_DANCERS on user's browsers after removing SEO
+  const STORAGE_KEY = 'theart_dancers_v12';
 
   const [dancers, setDancers] = useState<Dancer[]>(() => {
     try {

@@ -108,5 +108,41 @@ export const INITIAL_DANCERS: Dancer[] = [
     name: 'GAYUL', 
     role: 'DANCER', 
     imageUrl: 'https://lh3.googleusercontent.com/d/1hOcuggMBNZbiPeo8If1C9XLCXoEeO7J6=w1000?authuser=0$0' 
+  },
+  { 
+    id: '19', 
+    name: 'JUNWOO', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/16nqRDxjKZOWc5bFVg90zWwkDKdfxz4vx=w1000?authuser=0$0' 
+  },
+  { 
+    id: '20', 
+    name: 'YEONSEO', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1ulcjS1smt8gvBOYkyO9H_YknFW5q26Vo=w1000?authuser=0$0' 
+  },
+  { 
+    id: '21', 
+    name: 'SEOAH', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1JxCBVSDD5bGXhgK6a2xBfuuBiCK3HVov=w1000?authuser=0$0' 
+  },
+  { 
+    id: '22', 
+    name: 'NARYN', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1mbe8sUsxpHq3mM6EN0q5bcBa4ZKlyQJj=w1000?authuser=0$0' 
+  },
+  { 
+    id: '23', 
+    name: 'SUMIN', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1nOtUQGv91eQER5HRCa3N391-lSJVnN98=w1000?authuser=0$0' 
+  },
+  { 
+    id: '24', 
+    name: 'JEONGYOON', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1BMp6BVOHpggXy84xc50sqpxKKf3Pmlr5=w1000?authuser=0$0' 
   }
 ];
