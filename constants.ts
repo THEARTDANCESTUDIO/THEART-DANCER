@@ -44,6 +44,12 @@ export const INITIAL_DANCERS: Dancer[] = [
     imageUrl: 'https://lh3.googleusercontent.com/d/1fy9KLJYq5-tph2svhNx3GtvC1RV73I23=w1000?authuser=0$0' 
   },
   { 
+    id: '25', 
+    name: 'EUNSO', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1Z-qGGvhdokH5i8wGU8ntNmAxbz4GQpH2=w1000?authuser=0$0' 
+  },
+  { 
     id: '7', 
     name: 'YEEUN', 
     role: 'DANCER', 
