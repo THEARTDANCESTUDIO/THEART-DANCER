@@ -9,8 +9,8 @@ import { Dancer, Language } from './types.ts';
 import { translations } from './i18n.ts';
 
 const App: React.FC = () => {
-  // Update version to v13 to force sync INITIAL_DANCERS on user's browsers after adding dancer after JIMIN
-  const STORAGE_KEY = 'theart_dancers_v13';
+  // Update version to v14 to force sync INITIAL_DANCERS on user's browsers after adding SORA
+  const STORAGE_KEY = 'theart_dancers_v14';
 
   const [dancers, setDancers] = useState<Dancer[]>(() => {
     try {
