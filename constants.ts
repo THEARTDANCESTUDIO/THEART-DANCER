@@ -86,28 +86,10 @@ export const INITIAL_DANCERS: Dancer[] = [
     imageUrl: 'https://lh3.googleusercontent.com/d/1IlIjO0kXzEU7H0o9yMJOKN3xyw93sQaq=w1000?authuser=0$0' 
   },
   { 
-    id: '14', 
-    name: 'YENA', 
-    role: 'DANCER', 
-    imageUrl: 'https://lh3.googleusercontent.com/d/1bHbc60DJ6uz8dfd86l3UefT1N2P9_WuJ=w1000?authuser=0$0' 
-  },
-  { 
-    id: '15', 
-    name: 'JIYOON.J', 
-    role: 'DANCER', 
-    imageUrl: 'https://lh3.googleusercontent.com/d/1LvPNuVLQj5iicxE6TsBhQJDsX1w90zfb=w1000?authuser=0$0' 
-  },
-  { 
     id: '16', 
     name: 'JIYOON.S', 
     role: 'DANCER', 
     imageUrl: 'https://lh3.googleusercontent.com/d/1iesDQtU4MWr2L3eabSc-hLG17_fr3VDX=w1000?authuser=0$0' 
-  },
-  { 
-    id: '13', 
-    name: 'A IN', 
-    role: 'DANCER', 
-    imageUrl: 'https://lh3.googleusercontent.com/d/1t6P45w8LUtwikozyy6pjBmd9pmWHOchB=w1000?authuser=0$0' 
   },
   { 
     id: '18', 
