@@ -136,7 +136,7 @@ const App: React.FC = () => {
             </h2>
             <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-16">
               <div 
-                onClick={() => window.location.href = 'https://stupendous-shortbread-e6c2e2.netlify.app'}
+                onClick={() => window.location.href = 'https://theart-faq.netlify.app'}
                 className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50 min-w-[280px]"
               >
                 <div className="text-6xl font-black mb-4 group-hover:text-red-500 transition-colors">FAQ</div>
@@ -145,7 +145,7 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div 
-                onClick={() => window.location.href = 'https://vocal-fairy-ef3f8a.netlify.app'}
+                onClick={() => window.location.href = 'https://theart-contact.netlify.app'}
                 className="border border-white/5 p-12 hover:border-red-500/50 transition-colors cursor-pointer group rounded-2xl bg-black/50 min-w-[280px]"
               >
                 <div className="text-6xl font-black mb-4 group-hover:text-red-500 transition-colors">CONTACT</div>

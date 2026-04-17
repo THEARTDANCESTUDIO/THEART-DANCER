@@ -23,7 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isAdmin, currentLang, setLang, t
   const currentLangLabel = languages.find(l => l.code === currentLang)?.label;
 
   const handleLogoClick = () => {
-    window.location.href = 'https://theartdancestudio1120.netlify.app';
+    window.location.href = 'https://theartdancestudio.com';
   };
 
   const handleDancersClick = (e: React.MouseEvent) => {
@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isAdmin, currentLang, setLang, t
 
   const handleClassesClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.location.href = 'https://illustrious-pegasus-596112.netlify.app';
+    window.location.href = 'https://theart-schedule.netlify.app';
   };
 
   return (

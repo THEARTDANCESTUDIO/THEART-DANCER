@@ -29,7 +29,7 @@ export const Footer: React.FC<FooterProps> = ({ t, toggleAdmin }) => {
   };
 
   const handleFaqClick = () => {
-    window.location.href = 'https://stupendous-shortbread-e6c2e2.netlify.app';
+    window.location.href = 'https://theart-faq.netlify.app';
   };
 
   const handleDancersClick = (e: React.MouseEvent) => {
@@ -39,11 +39,11 @@ export const Footer: React.FC<FooterProps> = ({ t, toggleAdmin }) => {
   };
 
   const handleAboutClick = () => {
-    window.location.href = 'https://sparkly-basbousa-23afdf.netlify.app';
+    window.location.href = 'https://theart360vr.netlify.app';
   };
 
   const handleScheduleClick = () => {
-    window.location.href = 'https://illustrious-pegasus-596112.netlify.app';
+    window.location.href = 'https://theart-schedule.netlify.app';
   };
 
   return (
@@ -62,7 +62,7 @@ export const Footer: React.FC<FooterProps> = ({ t, toggleAdmin }) => {
             <li onClick={handleAboutClick} className="cursor-pointer hover:text-red-500">{t.footer.about}</li>
             <li onClick={handleFaqClick} className="cursor-pointer hover:text-red-500">{t.footer.faq}</li>
             <li 
-              onClick={() => window.location.href = 'https://vocal-fairy-ef3f8a.netlify.app'}
+              onClick={() => window.location.href = 'https://theart-contact.netlify.app'}
               className="cursor-pointer hover:text-red-500"
             >
               {t.footer.contact}
