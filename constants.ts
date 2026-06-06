@@ -80,12 +80,6 @@ export const INITIAL_DANCERS: Dancer[] = [
     imageUrl: 'https://lh3.googleusercontent.com/d/1Z12MgBQC8jqjCQbfuLTwj4bJFio4wI6m=w1000?authuser=0$0' 
   },
   { 
-    id: '12', 
-    name: 'JIWOO', 
-    role: 'DANCER', 
-    imageUrl: 'https://lh3.googleusercontent.com/d/1IlIjO0kXzEU7H0o9yMJOKN3xyw93sQaq=w1000?authuser=0$0' 
-  },
-  { 
     id: '16', 
     name: 'JIYOON.S', 
     role: 'DANCER', 
@@ -116,27 +110,33 @@ export const INITIAL_DANCERS: Dancer[] = [
     imageUrl: 'https://lh3.googleusercontent.com/d/1JxCBVSDD5bGXhgK6a2xBfuuBiCK3HVov=w1000?authuser=0$0' 
   },
   { 
-    id: '22', 
-    name: 'NARYN', 
-    role: 'DANCER', 
-    imageUrl: 'https://lh3.googleusercontent.com/d/1mbe8sUsxpHq3mM6EN0q5bcBa4ZKlyQJj=w1000?authuser=0$0' 
-  },
-  { 
-    id: '23', 
-    name: 'SUMIN', 
-    role: 'DANCER', 
-    imageUrl: 'https://lh3.googleusercontent.com/d/1nOtUQGv91eQER5HRCa3N391-lSJVnN98=w1000?authuser=0$0' 
-  },
-  { 
     id: '24', 
     name: 'JEONGYOON', 
     role: 'DANCER', 
     imageUrl: 'https://lh3.googleusercontent.com/d/1BMp6BVOHpggXy84xc50sqpxKKf3Pmlr5=w1000?authuser=0$0' 
   },
   { 
-    id: '26', 
-    name: 'HAYOUNG', 
+    id: '27', 
+    name: 'JIWOO.S', 
     role: 'DANCER', 
-    imageUrl: 'https://lh3.googleusercontent.com/d/16urtLoRo9n_NnN0F85usnrRfQxPqFZAK=w1000?authuser=0$0' 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1E91UkWtLgEqbJBjDOusdG-jmdWKw0_aq=w1000?authuser=0$0' 
+  },
+  { 
+    id: '28', 
+    name: 'REHEE', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1wgS-55bizZ8cTebYVczK8og2I0G6WZPs=w1000?authuser=0$0' 
+  },
+  { 
+    id: '29', 
+    name: 'HEE', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1Lg0ciKEngKns_6jwp68Dht0a04Z6d3a2=w1000?authuser=0$0' 
+  },
+  { 
+    id: '30', 
+    name: 'SERIN', 
+    role: 'DANCER', 
+    imageUrl: 'https://lh3.googleusercontent.com/d/1FOZT7L9n5f3fpToq5-gGNumceCmYxOpp=w1000?authuser=0$0' 
   }
 ];
