@@ -9,8 +9,8 @@ import { Dancer, Language } from './types.ts';
 import { translations } from './i18n.ts';
 
 const App: React.FC = () => {
-  // Update version to v22 to force sync INITIAL_DANCERS on user's browsers after adding SERIN
-  const STORAGE_KEY = 'theart_dancers_v22';
+  // Update version to v25 to force sync INITIAL_DANCERS on user's browsers after moving TAEYOON, JUNGWOO and deleting ONEW
+  const STORAGE_KEY = 'theart_dancers_v25';
 
   const [dancers, setDancers] = useState<Dancer[]>(() => {
     try {
